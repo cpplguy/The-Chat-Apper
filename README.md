@@ -1,0 +1,1 @@
+TheChatApper is a chatting website with lots of features, including rooms, accounts, a moderation system, and more. This website uses Javascript libraries such as React.JS, Node.JS, Mongoose, and Socket.IO.
