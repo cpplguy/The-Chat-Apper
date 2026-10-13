@@ -6,7 +6,6 @@ const router = express.Router();
 router.get("/", bannedAuthenticate, authenticate, async (req, res) => {
   const token = req.token;
   console.log("Authenticated user/user logged in: ", req.user);
-  //delete this
   
   res
     .status(200)

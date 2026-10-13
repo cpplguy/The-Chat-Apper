@@ -1,9 +1,10 @@
 const jwt = require("jsonwebtoken");
+const crypto = require("crypto");
 const bannedIps = require("../database/bannedips.js");
 const Users = require("../database/usermodel.js");
 const authenticate = async (req, res, next) => {
     const banned = new bannedIps({
-    ip: req.ip,
+    ip: crypto.createHash("sha256").update(req.ip).digest("hex"),
     banned:false
   })
   await banned.save()

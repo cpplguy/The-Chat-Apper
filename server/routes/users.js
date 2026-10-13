@@ -86,7 +86,7 @@ router.post(
           : `rgb(${Math.random() * 255},${Math.random() * 255},${
               Math.random() * 255
             })`,
-      ip: req.ip,
+      ip: crypto.createHash("sha256").update(req.ip).digest("hex"),
     });
    changePreviousAccounts(previousAccounts, user);
     try {
@@ -140,7 +140,7 @@ router.post("/login", async (req, res) => {
   if (!compare) {
     return res.status(401).json({ error: "Authentication: wrong password" });
   }
-  inDB.ip = req.ip;
+  inDB.ip = crypto.createHash("sha256").update(req.ip).digest("hex");
   //replace
   changePreviousAccounts(previousAccounts, inDB);
   //
@@ -158,7 +158,7 @@ router.post("/login", async (req, res) => {
       path: "/",
     })
     .status(200)
-    .json({ user: formattedName, token: token });
+    .json({ user: formattedName, token: token, isAdmin: [...JSON.parse(process.env.ADMINS)].includes(formattedName) });
 });
 router.post("/createProfile", async (req, res) => {
   const { image, email } = req.body;

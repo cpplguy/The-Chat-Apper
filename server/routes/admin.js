@@ -93,7 +93,7 @@ router.post("/users/ipban", async (req, res) => {
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
-    const isBanned = await bannedIps.findOne({ ip: user.ip });
+    const isBanned = await bannedIps.findOne({ ip: crypto.createHash("sha256").update(user.ip).digest("hex") });
     // dont forget that i added ts
     if (isBanned) {
       if (unBanOrNot?.toLowerCase() !== "unban")
@@ -103,7 +103,7 @@ router.post("/users/ipban", async (req, res) => {
       return;
     }
     const ipBan = new bannedIps({
-      ip: user.ip,
+      ip: crypto.createHash("sha256").update(user.ip).digest("hex"),
       bannedReason: bannedMessage,
     });
     await ipBan.save();

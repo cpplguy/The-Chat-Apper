@@ -1,5 +1,5 @@
-#!/usr/bin/env node
 require("dotenv").config();
+const crypto = require("crypto");
 const app = require("../app");
 const debug = require("debug")("server:server");
 const http = require("http");
@@ -47,7 +47,7 @@ function checkIfBanned(email) {
         email: email.replace(/💻|📱/g, "").trim(),
       });
       if (!user) resolve({ error: "No user found" });
-      const isIpBanned = await bannedIps.findOne({ ip: user?.ip });
+      const isIpBanned = await bannedIps.findOne({ ip: crypto.createHash("sha256").update(user?.ip).digest("hex") });
       if (user?.banned || isIpBanned?.banned) {
         resolve({
           banned: true,

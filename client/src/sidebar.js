@@ -61,7 +61,7 @@ export default function SideBar({ usernames }) {
   const [sideBar, setSideBar] = useState(false);
   return (
     <>
-      <section id="side">
+      <section id="side" className={sideBar ? "displayed" : "not-displayed"}>
         <div id="button-container">
           <button
             id="sidebar-button"

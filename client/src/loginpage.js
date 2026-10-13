@@ -25,7 +25,7 @@ export default function LoginPage() {
       case 401: alert("Incorrect password."); return;
       case 429: alert("Too many requests, please wait a few minutes."); return;
       case 200:
-        setIsAuth({ auth: true, user: data.user, token: data.token });
+        setIsAuth({ auth: true, user: data.user, token: data.token, isAdmin: data.isAdmin });
         return;
       default: alert(`Server code: ${fetc.status}. Error message: ${json}`);
     }
@@ -61,9 +61,9 @@ export default function LoginPage() {
         gap: "16px",
       }}>
         <h1 style={{ color: "#FFFF99", margin: "0 0 8px 0", fontSize: "2rem", fontWeight: 900, textAlign: "center", width: "100%" }}>
-          The <span style={{ color: "#FFFF99" }}>Facility</span>
+          The Chat Apper
         </h1>
-        <p style={{ color: "#b5bac1", margin: 0, fontSize: "0.9rem", textAlign: "center", width: "100%" }}>TheChatapper</p>
+        <p style={{ color: "#b5bac1", margin: 0, fontSize: "0.9rem", textAlign: "center", width: "100%" }}>Welcome Back!</p>
 
         <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
           <label style={{ color: "#b5bac1", fontSize: "0.85rem", fontWeight: "bold" }}>EMAIL</label>
@@ -140,7 +140,7 @@ export default function LoginPage() {
           onMouseEnter={e => e.target.style.color = "white"}
           onMouseLeave={e => e.target.style.color = "#b5bac1"}
         >
-          Sign Up
+          Don't have an account? Sign Up
         </button>
       </div>
     </div>

@@ -1,0 +1,39 @@
+#logo{
+    position:absolute;
+    cursor:pointer;
+    font-family:"inter", monospace;
+    font-size: 2vh;
+    font-weight: 300;
+    left:10px;
+    z-index:2;
+}
+#logo span{
+    font-style:italic;
+    font-weight:900;
+}
+#green{
+    color:green;
+}
+#black{
+    color:black;
+}
+#logo #white{
+    color:white;
+}
+.sub-text{
+    font-weight:lighter;
+    font-size:0.6em;
+}
+nav{
+    z-index:2;
+}
+@media(max-width:900px){
+    #nav-container button{
+        font-size:10px;
+        margin:0;
+        height:30px
+    }
+    #settings, #logout, #admin{
+        margin:0.5vh 0;
+    }
+}

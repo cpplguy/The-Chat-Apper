@@ -14,11 +14,16 @@ body{
     display:flex;
     flex-direction:row-reverse;
     justify-content:center;
-    z-index:999;
+    z-index:1;
+    transition: transform 0.25s ease;
+}
+#side.displayed{
+    z-index:3;
 }
 #side #button-container{
     display:flex;
     align-items:center;
+    z-index:100
 }
 #side #sidebar-button{
     display:flex;
@@ -48,16 +53,21 @@ body{
     border-radius:5px;
     transition:transform 0.2s;
 }
-#side .not-displayed{
+#side.not-displayed{
     transform:translateX(-18vh);
-    z-index:-10;
+    z-index:1;
 }
 aside.not-displayed{
-    z-index:-1000;
+    z-index:-1;
     pointer-events:none;
+}
+aside.displayed{
+    z-index:10000;
+    pointer-events:auto;
 }
 #side .displayed h2{
     transform:rotate(180deg);
+    z-index:1000;
 }
 #side aside .name{
     position:relative;
@@ -117,6 +127,7 @@ aside.not-displayed{
 }
 .section.section-displayed{
     transform:translateY(-2.5vh);
+     
 }
 #arrow.section-displayed{
     transform:rotate(0deg);
@@ -329,7 +340,7 @@ h2{
 }
 #messages-container{
     display: flex;
-    z-index: 1;
+    z-index: 1.1;
     margin: 0 auto;
     margin-top:5vh;
     background-color: white;
@@ -383,7 +394,7 @@ h2{
 .profile-picture img{
     width:3.5vh;
     height:3.5vh;
-    z-index:10;
+    z-index:1.1;
     border-radius:50%;
 }
 .username{
@@ -440,7 +451,9 @@ h2{
     bottom:-0.5vh;
     margin-left:2vh
 }
-
+#copy-chat-data{
+    font-size:1.75vh;
+}
 @keyframes rainbow{
     0%{background-position:0% 50%;}
     50%{background-position:100% 50%;}
@@ -458,7 +471,6 @@ h2{
 }
     #messages-container{
         max-height: 70vh;
-        margin-top:-10px;
     }
     #input-container input{
         height: 5vh;
