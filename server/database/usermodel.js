@@ -28,6 +28,10 @@ const schema = new mongoose.Schema({
     type:String,
     default: "No reason specified.",
   },
+  rank:{
+    type: String,
+    default: "Member",
+  },
   previousAccounts:{
     type: [String],
     default: [],

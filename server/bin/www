@@ -17,8 +17,9 @@ async function addColors(arr) {
     arr.map(async (item) => {
       const shavedEmail = item.email.replace(/💻|📱/g, "").trim();
       const colorInDb = await userModel.findOne({ email: shavedEmail });
+      const rank = await userModel.findOne({ email: shavedEmail });
       const user = colorInDb || 0;
-      return { ...item.toObject(), color: user?.color || "lightgray", image: user?.image || "none" };
+      return { ...item.toObject(), color: user?.color || "lightgray", image: user?.image || "none", rank: rank?.rank || "Member" };
     })
   );
 }

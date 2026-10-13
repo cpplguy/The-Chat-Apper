@@ -20,13 +20,13 @@ async function filterUsernames() {
     userSet.add(user.email);
   }
 }
-function changePreviousAccounts(previousAccounts, inDB){
+function changePreviousAccounts(previousAccounts, inDB) {
   if (
     previousAccounts?.length > 0 &&
     Array.isArray(previousAccounts) &&
     previousAccounts.every((s) => typeof s === "string" && s.length < 255)
   ) {
-    const sliced = previousAccounts.slice(0,20)
+    const sliced = previousAccounts.slice(0, 20);
     inDB.previousAccounts = [
       ...new Set([...(sliced || []), ...inDB.previousAccounts]),
     ];
@@ -46,7 +46,7 @@ router.delete("/logout", (req, res) => {
     });
     return res.sendStatus(200);
   } catch (err) {
-    console.log("error: ",err);
+    console.log("error: ", err);
     return res.status(400).json({ error: err });
   }
 });
@@ -88,7 +88,7 @@ router.post(
             })`,
       ip: crypto.createHash("sha256").update(req.ip).digest("hex"),
     });
-   changePreviousAccounts(previousAccounts, user);
+    changePreviousAccounts(previousAccounts, user);
     try {
       const userSave = await user.save();
       console.log(userSave);
@@ -111,7 +111,7 @@ router.post(
       return res.status(500).json({ error: "Internal Server Error: " + err });
     }
     console.log("user logged in");
-  }
+  },
 );
 
 router.get("/getEverything", async (req, res) => {
@@ -158,7 +158,11 @@ router.post("/login", async (req, res) => {
       path: "/",
     })
     .status(200)
-    .json({ user: formattedName, token: token, isAdmin: [...JSON.parse(process.env.ADMINS)].includes(formattedName) });
+    .json({
+      user: formattedName,
+      token: token,
+      isAdmin: [...JSON.parse(process.env.ADMINS)].includes(formattedName),
+    });
 });
 router.post("/createProfile", async (req, res) => {
   const { image, email } = req.body;
@@ -171,4 +175,16 @@ router.post("/createProfile", async (req, res) => {
   await user.save();
   return res.status(201).json({ message: "Profile image updated" });
 });
+router.patch("/rank"),
+  async (req, res) => {
+    const { email, rank } = req.body;
+    if (!email || !rank) {
+      return res.status(400).json({ error: "Email and rank required" });
+    }
+    const user = await User.findOne({ email: email });
+    if (!user) return res.status(404).json({ error: "User not found" });
+    user.rank = rank;
+    await user.save();
+    return res.status(200).json({ message: "Rank updated" });
+  }
 module.exports = router;

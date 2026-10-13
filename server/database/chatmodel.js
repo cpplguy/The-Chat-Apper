@@ -14,8 +14,11 @@ const schema = new mongoose.Schema(
       type: String,
       default: "main",
     },
+    rank:{
+    type: String,
+    default: "Member",
   },
-
+  },
   { timestamps: true }
 );
 module.exports = mongoose.model("ChatModel", schema);
